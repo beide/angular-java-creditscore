@@ -38,6 +38,9 @@ package-archive:
       cmd: /bin/sh
   steps:
     - script:
+        name: Install zip
+        code: apk --no-cache add zip
+    - script:
         name: Package application
         code: |
               mkdir -p $WERCKER_ROOT/wlsdeploy/applications
