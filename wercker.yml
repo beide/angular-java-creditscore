@@ -32,7 +32,7 @@ deploy-to-weblogic:
         name: Print application URL
         code: echo http://${WLS_IP}:30305/${WERCKER_APPLICATION_OWNER_NAME}
 
-build-domain-in-home-image:
+package-archive:
   box:
       id: spotify/alpine
       cmd: /bin/sh
@@ -43,4 +43,13 @@ build-domain-in-home-image:
               mkdir -p $WERCKER_ROOT/wlsdeploy/applications
               cp $WERCKER_ROOT/target/*.war $WERCKER_ROOT/wlsdeploy/applications/
               zip -r archive.zip wlsdeploy
-    # $JAVA_HOME/bin/jar cvf $WERCKER_ROOT/archive.zip  -C $WERCKER_ROOT/archive wlsdeploy
+# $JAVA_HOME/bin/jar cvf $WERCKER_ROOT/archive.zip  -C $WERCKER_ROOT/archive wlsdeploy
+
+build-domain-in-home-image:
+  box:
+      id: spotify/alpine
+      cmd: /bin/sh
+  steps:
+    - script:
+        name: test
+        code: ls -la $WERCKER_ROOT
