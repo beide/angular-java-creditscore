@@ -14,7 +14,7 @@
 
 docker build --file Dockerfile.weblogic \
     $BUILD_ARG \
-    --build-arg WDT_MODEL=simple-topology.yaml \
+    --build-arg WDT_MODEL=docker/simple-topology.yaml \
     --build-arg WDT_VARIABLE=docker/domain.properties \
     --build-arg WDT_ARCHIVE=archive.zip \
     --force-rm=true \
