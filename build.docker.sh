@@ -12,7 +12,7 @@
 . container-scripts/setEnv.sh docker/domain.properties
 
 
-sudo docker build --file Dockerfile.weblogic \
+docker build --file Dockerfile.weblogic \
     $BUILD_ARG \
     --build-arg WDT_MODEL=simple-topology.yaml \
     --build-arg WDT_VARIABLE=docker/domain.properties \
