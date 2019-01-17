@@ -50,9 +50,22 @@ package-archive:
 
 build-domain-in-home-image:
   box:
-      id: spotify/alpine
+      id: alpine
+      docker: true
       cmd: /bin/sh
   steps:
     - script:
-        name: test
-        code: ls -la $WERCKER_ROOT
+        name: Download WLDT
+        code: |
+              curl -Lo $WERCKER_ROOT/weblogic-deploy.zip https://github.com/oracle/weblogic-deploy-tooling/releases/download/weblogic-deploy-tooling-0.14/weblogic-deploy.zip
+              ls -la $WERCKER_ROOT
+    - script:
+        name: Create WebLogic credentials
+        code: |
+              echo "$WLS_ADMIN" > $WERCKER_ROOT/docker/adminuser.properties
+              echo "$WLS_PASSWORD" > $WERCKER_ROOT/docker/adminpass.properties
+              ls -la $WERCKER_ROOT/docker/
+              cat $WERCKER_ROOT/docker/adminuser.properties
+    - script:
+        name: Build docker image
+        code: ./build.docker.sh
