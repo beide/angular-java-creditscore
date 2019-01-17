@@ -1,4 +1,4 @@
-box: combient/java-mvn  
+box: combient/java-mvn
 build:
   steps:
     # Build Creditscore application
@@ -31,4 +31,16 @@ deploy-to-weblogic:
     - script:
         name: Print application URL
         code: echo http://${WLS_IP}:30305/${WERCKER_APPLICATION_OWNER_NAME}
-              
+
+build-domain-in-home-image:
+  box:
+      id: spotify/alpine
+      cmd: /bin/sh
+  steps:
+    - script:
+        name: Package application
+        code: |
+              mkdir -p $WERCKER_ROOT/wlsdeploy/applications
+              cp $WERCKER_ROOT/target/*.war $WERCKER_ROOT/wlsdeploy/applications/
+              zip -r archive.zip wlsdeploy
+    # $JAVA_HOME/bin/jar cvf $WERCKER_ROOT/archive.zip  -C $WERCKER_ROOT/archive wlsdeploy
