@@ -47,7 +47,7 @@ package-archive:
               cp $WERCKER_ROOT/target/*.war $WERCKER_ROOT/wlsdeploy/applications/
               zip -r archive.zip wlsdeploy
     - script:
-        name: Customize application home page
+        name: Update application archive name in WLDT topology
         code: |
               sed "s|@@APP2DEPLOY@@|`ls $WERCKER_ROOT/wlsdeploy/applications/`|g" -i $WERCKER_ROOT/docker/simple-topology.yaml
               cat $WERCKER_ROOT/docker/simple-topology.yaml
@@ -75,4 +75,27 @@ build-domain-in-home-image:
               cat $WERCKER_ROOT/docker/adminuser.properties
     - script:
         name: Build docker image
-        code: ./build.docker.sh
+        code: |
+              . container-scripts/setEnv.sh docker/domain.properties
+              docker build --file Dockerfile.weblogic \
+                  $BUILD_ARG \
+                  --build-arg WDT_MODEL=docker/simple-topology.yaml \
+                  --build-arg WDT_VARIABLE=docker/domain.properties \
+                  --build-arg WDT_ARCHIVE=archive.zip \
+                  --force-rm=true \
+                  -t $DOCKER_USERNAME/12213-domain-home-in-image-wdt .
+
+store-image:
+  box:
+      id: alpine
+      cmd: /bin/sh
+  docker: true
+  steps:
+    - script:
+        name: Install docker
+        code: apk --no-cache add docker
+    - script:
+        name: Push the image to a repository
+        code: |
+              docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+              docker push $DOCKER_USERNAME/12213-domain-home-in-image-wdt
