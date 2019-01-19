@@ -29,7 +29,7 @@ topology:
             Cluster: '@@PROP:CLUSTER_NAME@@'
 resources:
     JDBCSystemResource:
-        DUMMY:
+        testDatasource:
             Target: '@@PROP:CLUSTER_NAME@@'
             DescriptorFileName: 'jdbc/testDatasource-jdbc.xml'
             JdbcResource:

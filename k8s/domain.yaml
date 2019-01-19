@@ -19,7 +19,7 @@ spec:
   domainHomeInImage: true
   # The WebLogic Server Docker image that the Operator uses to start the domain
   # image: "peternagy/12213-domain-home-in-image-wdt"
-  image: "creditscore-domain-home-in-image-12213:1.0"
+  image: "peternagy/creditscore-domain-home-in-image-12213:1.0"
   # imagePullPolicy defaults to "Always" if image version is :latest
   imagePullPolicy: "IfNotPresent"
   # Identify which Secret contains the credentials for pulling an image
