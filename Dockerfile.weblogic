@@ -46,8 +46,8 @@
 #
 # Pull base image
 # ---------------
-# FROM store/oracle/weblogic:12.2.1.3
-FROM phx.ocir.io/weblogick8s/pnagy:wls.12.2.1.3.0.op.rc2
+FROM store/oracle/weblogic:12.2.1.3
+# FROM phx.ocir.io/weblogick8s/pnagy:wls.12.2.1.3.0.op.rc2
 
 # Maintainer
 # ----------

@@ -27,6 +27,25 @@ topology:
         '@@PROP:CLUSTER_NAME@@-template':
             ListenPort: '@@PROP:MANAGED_SERVER_PORT@@'
             Cluster: '@@PROP:CLUSTER_NAME@@'
+resources:
+    JDBCSystemResource:
+        DUMMY:
+            Target: '@@PROP:CLUSTER_NAME@@'
+            DescriptorFileName: 'jdbc/testDatasource-jdbc.xml'
+            JdbcResource:
+                JDBCConnectionPoolParams:
+                    TestTableName: SQL ISVALID
+                    InitialCapacity: 0
+                JDBCDataSourceParams:
+                    GlobalTransactionsProtocol: OnePhaseCommit
+                    JNDIName: test/datasource
+                JDBCDriverParams:
+                    URL: 'jdbc:oracle:thin:@//orcl:1521/db.example.com'
+                    PasswordEncrypted: 'tiger'
+                    DriverName: oracle.jdbc.OracleDriver
+                    Properties:
+                        user:
+                            Value: tiger
 appDeployments:
     Application:
         # Quote needed because of hyphen in string

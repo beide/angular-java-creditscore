@@ -84,7 +84,7 @@ build-domain-in-home-image:
                   --build-arg WDT_VARIABLE=docker/domain.properties \
                   --build-arg WDT_ARCHIVE=archive.zip \
                   --force-rm=true \
-                  -t $DOCKER_USERNAME/12213-domain-home-in-image-wdt .
+                  -t $DOCKER_USERNAME/$DOCKER_IMAGE .
     - script:
         name: Push the image to a repository
-        code: docker push $DOCKER_USERNAME/12213-domain-home-in-image-wdt
+        code: docker push $DOCKER_USERNAME/$DOCKER_IMAGE
