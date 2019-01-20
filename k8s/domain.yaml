@@ -19,7 +19,7 @@ spec:
   domainHomeInImage: true
   # The WebLogic Server Docker image that the Operator uses to start the domain
   # image: "peternagy/creditscore-domain-home-in-image-12213:2.0"
-  image: "peternagy/angular-java-creditscore:"
+  image: "peternagy/angular-java-creditscore:bf05442e93287cab65a3335f7a67e1ee4eaca096"
   # imagePullPolicy defaults to "Always" if image version is :latest
   imagePullPolicy: "IfNotPresent"
   # Identify which Secret contains the credentials for pulling an image
@@ -41,6 +41,7 @@ spec:
   # - "ADMIN_ONLY" will start up only the administration server (no managed servers will be started)
   # - "IF_NEEDED" will start all non-clustered servers, including the administration server and clustered servers up to the replica count
   serverStartPolicy: "IF_NEEDED"
+  restartVersion: "domainV1"
   serverPod:
     # an (optional) list of environment variable to be set on the servers
     env:
@@ -73,8 +74,9 @@ spec:
   clusters:
   - clusterName: cluster-1
     serverStartState: "RUNNING"
+    maxUnavailable: 1
     replicas: 2
   # The number of managed servers to start for unlisted clusters
   # replicas: 1
-  configOverrides: jdbccm
-  configOverrideSecrets: [dbsecret]
+  # configOverrides: jdbccm
+  # configOverrideSecrets: [dbsecret]

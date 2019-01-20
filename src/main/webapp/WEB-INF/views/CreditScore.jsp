@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-  <head>  
-    <title>AngularJS + Spring Boot</title>  
+  <head>
+    <title>AngularJS + Spring Boot</title>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
      <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
@@ -11,7 +11,7 @@
   <body ng-app="myApp" class="ng-cloak">
       <div class="generic-container" ng-controller="CreditController as ctrl">
           <div class="panel panel-default">
-              <div class="panel-heading"><span class="lead">Customer Credit Score 23/10/2018 00:36 - @@NAMESPACE@@</span></div>
+              <div class="panel-heading"><span class="lead">Customer Credit Score - @@NAMESPACE@@</span></div>
               <div class="formcontainer">
                   <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
                       <input type="hidden" ng-model="ctrl.user.id" />
@@ -28,8 +28,8 @@
                               </div>
                           </div>
                       </div>
-                        
-                      
+
+
                       <div class="row">
                           <div class="form-group col-md-12">
                               <label class="col-md-2 control-lable" for="file">Last Name</label>
@@ -56,7 +56,7 @@
                               </div>
                           </div>
                       </div>
-                      
+
                       <div class="row">
                           <div class="form-group col-md-12">
                               <label class="col-md-2 control-lable" for="file">SSN</label>
@@ -68,8 +68,8 @@
                                   </div>
                               </div>
                           </div>
-                      </div>                      
- 
+                      </div>
+
                       <div class="row">
                           <div class="form-actions floatRight">
                               <input type="submit"  value="Score" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
@@ -83,7 +83,7 @@
               <div class="panel-heading"><span class="lead">Credit Score: <span id="score_result" style="color:red">{{ctrl.user.score}}</span></span></div>
           </div>
       </div>
-      
+
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
