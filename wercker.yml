@@ -84,7 +84,7 @@ build-domain-in-home-image:
                   --build-arg WDT_VARIABLE=docker/domain.properties \
                   --build-arg WDT_ARCHIVE=archive.zip \
                   --force-rm=true \
-                  -t $DOCKER_USERNAME/$DOCKER_IMAGE .
+                  -t $DOCKER_USERNAME/$WERCKER_APPLICATION_NAME:$WERCKER_GIT_COMMIT .
     - script:
         name: Push the image to a repository
-        code: docker push $DOCKER_USERNAME/$DOCKER_IMAGE
+        code: docker push $DOCKER_USERNAME/$WERCKER_APPLICATION_NAME:$WERCKER_GIT_COMMIT

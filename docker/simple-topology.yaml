@@ -40,12 +40,12 @@ resources:
                     GlobalTransactionsProtocol: OnePhaseCommit
                     JNDIName: test/datasource
                 JDBCDriverParams:
-                    URL: 'jdbc:oracle:thin:@//orcl:1521/db.example.com'
+                    URL: 'db.example.com'
                     PasswordEncrypted: 'tiger'
                     DriverName: oracle.jdbc.OracleDriver
                     Properties:
                         user:
-                            Value: tiger
+                            Value: scott
 appDeployments:
     Application:
         # Quote needed because of hyphen in string
