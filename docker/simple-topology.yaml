@@ -35,17 +35,16 @@ resources:
             JdbcResource:
                 JDBCConnectionPoolParams:
                     TestTableName: SQL ISVALID
-                    InitialCapacity: 0
                 JDBCDataSourceParams:
                     GlobalTransactionsProtocol: OnePhaseCommit
                     JNDIName: test/datasource
                 JDBCDriverParams:
-                    URL: 'db.example.com'
-                    PasswordEncrypted: 'tiger'
+                    URL: '@@FILE:/u01/oracle/properties/jdbcurl.properties@@'
+                    PasswordEncrypted: '@@FILE:/u01/oracle/properties/adminpass.properties@@'
                     DriverName: oracle.jdbc.OracleDriver
                     Properties:
                         user:
-                            Value: scott
+                            Value: scott1
 appDeployments:
     Application:
         # Quote needed because of hyphen in string

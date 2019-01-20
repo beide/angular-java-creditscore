@@ -71,8 +71,10 @@ build-domain-in-home-image:
         code: |
               echo "$WLS_ADMIN" > $WERCKER_ROOT/docker/adminuser.properties
               echo "$WLS_PASSWORD" > $WERCKER_ROOT/docker/adminpass.properties
+              echo "$JDBC_URL" > $WERCKER_ROOT/docker/jdbcurl.properties
               ls -la $WERCKER_ROOT/docker/
               cat $WERCKER_ROOT/docker/adminuser.properties
+              cat $WERCKER_ROOT/docker/jdbcurl.properties
     - script:
         name: Build docker image
         code: |
