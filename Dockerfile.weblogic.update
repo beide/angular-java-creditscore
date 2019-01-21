@@ -1,0 +1,55 @@
+#Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+#
+#Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
+#
+#
+# HOW TO BUILD THIS IMAGE
+# -----------------------
+# Run:
+#      $ sudo docker build --no-cache \
+#            --build-arg WEBAPP_LOCATION=path to war
+#            --build-arg WEBAPP_WAR=war file name
+#            --build-arg SOURCEIMAGE=tag of image to update
+#            --build-arg WLS_ADMINUSER=
+#            --build-arg WLS_ADMINPASSWORD=
+#            --force-rm=true \
+#            -t 12213-domain-home-in-image-wdt .
+#
+#
+# Pull image
+# ---------------
+ARG SOURCEIMAGE
+FROM ${SOURCEIMAGE}
+
+ARG WEBAPP_LOCATION
+ARG WEBAPP_WAR
+ARG WLS_ADMINUSER
+ARG WLS_ADMINPASSWORD
+
+ENV ADMIN_USER=$WLS_ADMINUSER \
+    ADMIN_PASSWORD=$WLS_ADMINPASSWORD \
+    WEBAPP_WARFILE=$WEBAPP_WAR \
+    APP_PKG_FILE=$WEBAPP_LOCATION/$WEBAPP_WAR
+
+COPY ${APP_PKG_FILE} ${SCRIPT_HOME}
+RUN ls -la ${SCRIPT_HOME}
+COPY ${APP_PKG_FILE} ${DOMAIN_HOME}/sample-domain1/wlsdeploy/applications/
+RUN ls -la ${DOMAIN_HOME}/sample-domain1/wlsdeploy/applications/
+COPY container-scripts/appdeploy.py ${SCRIPT_HOME}
+COPY container-scripts/updateApp.sh ${SCRIPT_HOME}
+
+COPY docker/*.properties ${PROPERTIES_FILE_DIR}/
+
+USER root
+RUN chmod +xw ${SCRIPT_HOME}/*.sh && \
+    chown oracle:oracle ${SCRIPT_HOME}/${WEBAPP_WARFILE} && \
+    chown oracle:oracle ${DOMAIN_HOME}/sample-domain1/wlsdeploy/applications/${WEBAPP_WARFILE} && \
+    chown -R oracle:oracle ${PROPERTIES_FILE_DIR}
+
+ENV APP_PKG_FILE=${SCRIPT_HOME}/${WEBAPP_WARFILE} \
+    APP_NAME="creditscore" \
+    CLUSTER_NAME="cluster-1"
+
+USER oracle
+RUN . ${ORACLE_HOME}/wlserver/server/bin/setWLSEnv.sh && \
+    ${SCRIPT_HOME}/updateApp.sh
