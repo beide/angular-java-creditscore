@@ -106,7 +106,7 @@ update-domain-in-home-image:
               echo "username=$WLS_ADMIN" > $WERCKER_ROOT/docker/security.properties
               echo "password=$WLS_PASSWORD" >> $WERCKER_ROOT/docker/security.properties
               ls -la $WERCKER_ROOT/docker/
-              cat $WERCKER_ROOT/docker/adminuser.properties
+              cat $WERCKER_ROOT/docker/security.properties
     - script:
         name: Build docker image
         code: |
