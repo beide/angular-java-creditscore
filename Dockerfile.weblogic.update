@@ -53,3 +53,15 @@ ENV APP_PKG_FILE=${SCRIPT_HOME}/${WEBAPP_WARFILE} \
 USER oracle
 RUN . ${ORACLE_HOME}/wlserver/server/bin/setWLSEnv.sh && \
     ${SCRIPT_HOME}/updateApp.sh
+
+# Mount the domain home and the WDT home for easy access.
+VOLUME $DOMAIN_HOME
+VOLUME $WDT_HOME
+
+# Expose admin server, managed server port and domain debug port
+EXPOSE $ADMIN_PORT $MANAGED_SERVER_PORT $DEBUG_PORT
+
+WORKDIR $DOMAIN_HOME
+
+# Define default command to start Admin Server in a container.
+CMD ["/u01/oracle/startAdminServer.sh"]

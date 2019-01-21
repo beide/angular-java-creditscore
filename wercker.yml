@@ -110,6 +110,8 @@ update-domain-in-home-image:
     - script:
         name: Build docker image
         code: |
+              export WEBAPP_WAR="creditscore-1.0.0.war"
+              export WEBAPP_LOCATION="target"
               docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
               docker build --file Dockerfile.weblogic.update --no-cache \
                   --build-arg WEBAPP_LOCATION=$WEBAPP_LOCATION \
